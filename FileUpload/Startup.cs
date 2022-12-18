@@ -4,8 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using FileUpload.API.Interfaces;
 using FileUpload.Consts;
 using FileUpload.Context;
+using FileUpload.Helpers;
+using FileUpload.Interfaces;
+using FileUpload.Interfaces.IHelpers;
+using FileUpload.Repos;
 using log4net;
 using log4net.Config;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +45,10 @@ namespace FileUpload
                 (Const.DB_CONNECTION));
 
             services.AddControllersWithViews();
+
+            services.AddScoped<ITool, Tool>();  
+            services.AddScoped<IHomeRepo, HomeRepo>();
+            services.AddScoped<ITransactionApiRepo, TransactionApiRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

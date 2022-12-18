@@ -13,6 +13,9 @@ namespace FileUpload.Consts
 
         public static string ENVIRONMENT = string.Empty;
         public static string DB_CONNECTION = string.Empty;
+        public readonly static string TransactionCSVStatus_Approved = "Approved";
+        public readonly static string TransactionCSVStatus_Failed = "Failed";
+        public readonly static string TransactionCSVStatus_Finished = "Finished";
         public static void loadConfigData()
         {
             var filePath = Path.Combine(

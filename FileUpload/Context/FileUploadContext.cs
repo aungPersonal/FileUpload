@@ -1,4 +1,5 @@
-﻿using FileUpload.Models;
+﻿using FileUpload.Data;
+using FileUpload.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,10 @@ namespace FileUpload.Context
         {
         }
 
+        public DbSet<ConfigUploadFileType> ConfigUploadFileType { get; set; }
+        public DbSet<ConfigTransactionStatus> ConfigTransactionStatus { get; set; }
+        public DbSet<InvoiceTransaction> InvoiceTransaction { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
@@ -30,6 +35,9 @@ namespace FileUpload.Context
             }
 
             base.OnModelCreating(modelBuilder);
+
+            ConfigTransactionStatusData.Seed(modelBuilder);
+            ConfigUploadFileTypeData.Seed(modelBuilder);
         }
 
     }

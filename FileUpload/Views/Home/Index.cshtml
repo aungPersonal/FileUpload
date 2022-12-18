@@ -2,7 +2,56 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model FileUpload.Dtos.Home.IndexResponse
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+    <form asp-controller="Home" asp-action="Index" method="post" enctype="multipart/form-data">
+        <input type="file" name="postedFile" />
+        <input type="submit" value="Import" />
+    </form>
+
+    @{
+
+        if (Model.StatusCode != 200)
+        {
+            <label class="text-danger" style="font-size: 30px;">@Model.Message</label>
+        }
+        else
+        {
+            <label class="text-success" style="font-size: 30px;">@Model.Message</label>
+        }
+
+        if (Model.CheckTransactionModel != null)
+        {
+            if (Model.CheckTransactionModel.IsValid == false)
+            {
+                <table style="text-align: left;">
+                    <thead>
+                        <tr>
+                            <th style="padding-right: 50px;">
+                                Transaction Identificator
+                            </th>
+                            <th>
+                                Error Message
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CheckTransactionModel.Items)
+                        {
+                            <tr>
+                                <td>@item.InvoiceTransaction.Id</td>
+                                <td class="text-danger">@item.ErrorMessage</td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+            }
+        }
+    }
+
 </div>
